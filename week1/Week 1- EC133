@@ -1,0 +1,67 @@
+# Program 1: 
+### Statement: Addition of Two Words
+
+.text
+_start:
+    # Load two 32-bit words into registers
+    li t0, 0x1000        # Load immediate 0x1000 into t0
+    li t1, 0x2000        # Load immediate 0x2000 into t1
+    
+    # Add the two words
+    add t2, t0, t1       # t2 = t0 + t1
+
+
+
+### Observation - Single Cycle
+- Loading Values: The first Assembly program loads two 32-bit word values, 0x1000 and 0x2000, into the registers t0 and t1 respectively.
+Adding the Values: The program adds the values stored in t0 and t1, storing the result in the register t2
+
+# Program 2: 
+### Statement: Addition of Two Half-Words
+.text
+    .globl _start
+
+_start:
+    # Load two 16-bit half-words into registers
+    li t0, 0x1000        # Load immediate 0x1000 into t0
+    li t1, 0x2000        # Load immediate 0x2000 into t1
+    
+    # Mask to keep only the lower 16-bits
+    andi t0, t0, 0xFFFF  # t0 = t0 & 0xFFFF
+    andi t1, t1, 0xFFFF  # t1 = t1 & 0xFFFF
+    
+    # Add the two half-words
+    add t2, t0, t1       # t2 = t0 + t1
+
+### Observation - Single Cycle
+Loading Values: The second Assembly program loads two 32-bit values, 0x1000 and 0x2000, into the registers t0 and t1 respectively.
+Extracting Lower 16 Bits: The program then masks the upper 16 bits of each value, retaining only the lower 16-bit half-words in both t0 and t1.
+Adding the Half-Words: It adds the two 16-bit half-word values stored in t0 and t1, storing the result in the register t2.
+
+# Program 3: 
+### Statement:  Addition of Two Bytes
+
+    .text
+    .globl _start
+
+_start:
+    # Load two 8-bit bytes into registers
+    li t0, 0x10          # Load immediate 0x10 into t0
+    li t1, 0x20          # Load immediate 0x20 into t1
+    
+    # Mask to keep only the lower 8-bits
+    andi t0, t0, 0xFF    # t0 = t0 & 0xFF
+    andi t1, t1, 0xFF    # t1 = t1 & 0xFF
+    
+    # Add the two bytes
+    add t2, t0, t1       # t2 = t0 + t1
+
+    # Exit
+    li a0, 10            # a0 = 10 (exit code for ecall)
+    ecall
+
+
+### Observation - Single Cycle
+Loading Values: The third Assembly program loads two 8-bit byte values, 0x10 and 0x20, into the registers t0 and t1 respectively.
+Extracting Lower 8 Bits: The program masks the upper 24 bits of each value, retaining only the lower 8-bit bytes in both t0 and t1.
+Adding the Bytes: It adds the two 8-bit byte values stored in t0 and t1, storing the result in the register t2
